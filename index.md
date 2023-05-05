@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>My Profile</title>
-  </head>
-  <body>
     <div align="center">
       <img src="https://user-images.githubusercontent.com/21994085/236544496-9f39ccee-f293-4f09-90de-931b23638f8f.png"/>
       <h1>Welcome to my Profile</h1>
@@ -58,5 +52,3 @@
       <img src="https://raw.githubusercontent.com/pinapelz/pinapelz/main/profile-3d-contrib/profile-green-animate.svg" alt="Contributions Graph" width="800"/>
       <br>
     </p>
-  </body>
-</html>

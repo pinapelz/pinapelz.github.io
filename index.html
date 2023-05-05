@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Profile</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background-color: #f4f4f4;
+		}
+
+		header {
+			background-color: #333;
+			color: #fff;
+			padding: 10px;
+			text-align: center;
+		}
+
+		h1, h2, h3 {
+			margin: 10px;
+			font-weight: normal;
+		}
+
+		h1 {
+			font-size: 48px;
+			text-shadow: 2px 2px 2px #444;
+		}
+
+		h2 {
+			font-size: 36px;
+			border-bottom: 2px solid #333;
+			padding-bottom: 10px;
+			margin-bottom: 30px;
+		}
+
+		p {
+			margin: 10px;
+			font-size: 18px;
+			line-height: 1.6;
+		}
+
+		a {
+			color: #333;
+			text-decoration: none;
+		}
+
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+		}
+
+		.row {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+
+		.card {
+			background-color: #fff;
+			box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+			margin-bottom: 20px;
+			width: calc(33% - 20px);
+			padding: 20px;
+			box-sizing: border-box;
+			border-radius: 6px;
+			transition: box-shadow 0.2s;
+		}
+
+		.card:hover {
+			box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+		}
+
+		.card h3 {
+			margin-top: 0;
+		}
+
+		.btn {
+			display: inline-block;
+			padding: 10px 20px;
+			background-color: #333;
+			color: #fff;
+			border: none;
+			border-radius: 6px;
+			margin-top: 20px;
+			cursor: pointer;
+			transition: background-color 0.2s;
+		}
+
+		.btn:hover {
+			background-color: #444;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Welcome to my Profile</h1>
+	</header>
+    <div class="container">
+		<h2>About Me</h2>
+		<div>
+			<p>I'm a student at the University of California, Irvine</p>
+			<p>All I ever do is play MMOs and I'm sure you'll figure out the other thing I enjoy doing soon enough</p>
+			<p>You can find some of the things I waste time doing pinned down below and also under the repositories tab</p>
+		</div>
+ <div align="center">
+  <img src="https://user-images.githubusercontent.com/21994085/236538532-d2bb858b-5040-4895-9c36-e7e393e65e1f.png" alt="abanner" width="800"/>
+  <div class="row">
+    <div class="col">
+      <strong><a href="https://github.com/pinapelz/nijitrack">Nijitrack</a></strong>
+      <p>Scuffed Python scripts to help record historical subscriber data for YouTube Channels.<br>
+      Currently deployed for Nijisanji <a href="https://nijitracker.com/">here</a></p>
+    </div>
+    <div class="col">
+      <strong><a href="https://github.com/pinapelz/ytmp3AutoTag">YTMP3AutoTag</a></strong>
+      <p>A JSwing based GUI that uses yt-dlp to download and automatically tag mp3 files</p>
+    </div>
+    <div class="col">
+      <strong><a href="https://github.com/pinapelz/JHolodex/">JHolodex</a></strong>
+      <p>Object oriented Java Holodex Wrapper</p>
+    </div>
+  </div>
+</div>
+<h2>Contact</h2>
+<p>If you for some reason need to reach me, the best way to do so is through Discord at Pinapelz#2232</p>
+<img src="https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white"/>
+<h2>Statistics</h2>
+<div align="center">
+  <img src="https://raw.githubusercontent.com/pinapelz/pinapelz/main/profile-3d-contrib/profile-green-animate.svg" alt="Contributions Graph" width="800"/>
+</div>
+</body>
+</html>

@@ -7,14 +7,14 @@ heroImage: 'https://files.pinapelz.com/pso2ngs-2232-collab.png'
 Now that I've explained the idea and motivations behind running the archive, how does it actually work? Well first I needed to figure out how to actually save all the content. I'm not exactly proud of the code for the worker since I sort of kept building on top of it which made it a bit of a mess.
 
 ## The Worker
-I decided to mimick the workflow of Ragtag Archive by writing a worker script that'll download and re-upload the content. I decided that for each individual video I would archive: the video content itself, the thumbnail, and any metadata that already comes with the `.info.json` which yt-dlp generates.
+I decided to mimic the workflow of Ragtag Archive by writing a worker script that'll download and re-upload the content. I decided that for each individual video I would archive: the video content itself, the thumbnail, and any metadata that already comes with the `.info.json` which yt-dlp generates.
 
 ### Sourcing the Videos
 Ragtag Archive was already hosting a bunch of VTuber music that doesn't exist on YouTube, so my priority was to first grab that. 
 
 Luckily while they were still about to shut down, they published a [dump of the metadata for all the content on Ragtag Archive](https://ragtag.link/archive-database). From there it was just a matter of finding and saving the video ID of all rows that contain music related keywords ("cover", "Original song", "歌てみた", etc.).
 
-The original dump was a gigantic ndjson, but I decided to turn it into a CSV since the [dump of all videos archived on Ragtag but unavailable on YouTube](https://dl.kitsu.red/ragtag-archive_2023-05-26.not-on-youtube.csv) was already in CSV format, and I wanted to make it more readable in case I needed to manually check things with Excel 
+The original dump was a gigantic ndjson, but I decided to turn it into a CSV since the [dump of all videos archived on Ragtag but unavailable on YouTube](https://dl.kitsu.red/ragtag-archive_2023-05-26.not-on-youtube.csv) was already in that format, and I wanted to make it more readable in case I needed to manually check things with Excel 
 
 Theoretically all I'd need to know was if a given row contained certain keywords, so the only "clean" data I needed to keep was the ID of the video and the direct link to download it from Ragtag (some titles or descriptions could be using the delimiter character resulting in the data being malformed).
 ```python
@@ -66,7 +66,7 @@ yt-dlp --flat-playlist -i --print-to-file url playlist.txt "URL"
 <img src="https://files.pinapelz.com/hl-playlist.png" alt="Table of converted VTuber video data" width=300px />
 </a>
 
-Then the final place I searched was over on [Holodex](https://holodex.net/). It's got a pretty nice search feature where you can search through videos by the topics which they are tagged with. I'm pretty sure its automatic since occasionally you do find one or videos which are tagged under the wrong topic. 
+The final place I searched was over on [Holodex](https://holodex.net/). It's got a pretty nice search feature where you can search through videos by the topics. I'm pretty sure they're automatically tagged since occasionally you do find one or videos which match certain keywords but are clearly not of that topic.
 
 I used the `Music_Cover` and `Original_Song` tags and was able to see 36 videos per page with there being 730 pages meaning they had identified `26,280` potential music covers. Holodex does keep the index of videos that are already deleted or archived, so the actual number of available videos will be a bit less. But nevertheless it's a pool of covers to work off of.
 
@@ -106,7 +106,7 @@ subprocess.run(f'yt-dlp {url}{url_id} -f "bestvideo[height<=1080][ext=webm]+best
 ```
 Essentially for any video unavailable on YouTube, I would attempt to download it from Ragtag (using the direct links that I had saved from earlier). 
 
-I would always try downloading from YouTube through yt-dlp first as Ragtag was being overloaded at the time with people rushing to save content before the day it would shut down. 
+I would always try downloading from YouTube through yt-dlp first as Ragtag was being overloaded with people rushing to save content before the day it would shut down. 
 
 Ragtag stores videos as `.mkv` files so once they were downloaded I converted them over to `.webm` so that videos from YouTube and Ragtag would be in the same format. As far as I'm aware WEBM is a subset of MKV, so it was just a matter of changing the containers.
 
@@ -130,7 +130,7 @@ https://content.archive.ragtag.moe/gd:1ujQwfkOSa8_3Im-DSuAGp-oOfsTgj9u3/4VBYfb20
 #### Thumbnails
 Thumbnails were handled slightly differently when downloading from YouTube. For those unaware you can access all the versions of thumbnails for a particular video by going to `https://img.youtube.com/vi/{VIDEO_ID}/{RESOLUTION}` (so long as the video is public). 
 
-So downloading thumbnails was just a matter of swapping the video ID and requesting the max resolution thumbnail (`maxresdefault.jpg`). I kept `mqdefault.jpg` as a potential backup in case the video does not have a high quality thumbnail available.
+Downloading thumbnails was just a matter of swapping the video ID and requesting the max resolution thumbnail (`maxresdefault.jpg`). I kept `mqdefault.jpg` as a potential backup in case the video does not have a high quality thumbnail available.
 
 #### A trick of sorts
 Now obviously because the data dump from Ragtag is slowly growing out of date, there will come a time when perhaps a video isn't already downloaded, isn't available on YouTube, but perhaps is on Ragtag. We no longer have the direct link to the video in a nice CSV format anymore, so how do we download it?
@@ -197,8 +197,7 @@ def download_thumbnail_yt(video_id: str):
 ## Bilibili and Other Sites?
 One thing that Ragtag does not archive is Bilibili content. One of the largest VTuber companies, Nijisanji, also has a Chinese branch known as VirtuaReal who upload on Bilibili rather than YouTube.
 
-Turns out because I was already using yt-dlp, it was pretty simple to add support for Bilibili. I wrote a nice little abstract class which serves as the "archiving protocol" which should in theory allow me to add support for other sites in the future.
-
+Turns out because I was already using yt-dlp, it was pretty simple to add support for Bilibili. I wrote a nice little abstract class which serves as the "archiving protocol". Since yt-dlp is already highly configurable, it wouldn't be hard to add even more sites in the future.
 ```python
 from abc import ABC, abstractmethod
 import os
@@ -245,9 +244,9 @@ subprocess.run(f'yt-dlp {full_url} -f "bestvideo[ext=mp4]+bestaudio" -o "{self._
 ```
 I should mention that you do need to provide cookies to yt-dlp in order to download at 1080P since Bilibili locks 1080P playback behind registering for a free account, and 1080P high bitrate + 4K behind a paid subscription.
 
-Interestingly, the only format available for download is MP4. I ended up deciding to convert the videos to WEBM since it's not only a more efficient format for streaming, but also it keeps all the videos in the same format.
+Interestingly, the only format available is `mp4`. I ended up deciding to convert all of them to `webm` after downloading since it's not only a more efficient format for streaming, but also keeps all the video content in the same format.
 
-This was basically just running an FFMPEG command on all videos in the directory after they were downloaded. But this caused a slight problem later on...
+This was basically just running an FFMPEG command on all videos in the directory after they were downloaded. It did cause a slight problem later on...
 ```python
 subprocess.run(f"ffmpeg -i {directory}/{file} -c:v libvpx-vp9 -crf 30 -b:v 0 -c:a libopus {directory}/{file.split('.')[0]}.webm", shell=True)
 ```
@@ -321,7 +320,7 @@ Now this works great for YouTube videos since there's practically no CPU or RAM 
 
 Yep. 100% CPU usage. Turns out FFMPEG can be pretty CPU intensive, the process of getting those videos converted to WEBM runs at around `0.05x` for me, meaning that a 5-minute video will take around 500 minutes to convert. The solution would be to upgrade the specs of the worker, but that would mean paying more money.
 
-I ended up just making do with the speed. Bilibili isn't exactly a priority for me either, so I'm fine with it taking a while to download and convert videos. (The entire worker flow is queue based too which I'll touch on in part 3)
+I ended up just making do with the speed. Bilibili isn't exactly a priority for me either, so I'm fine with it taking a while to download and convert videos. (The entire worker flow is queue based too, I'll touch on this another time)
 
 ## That's all for now
 That's pretty much all I got to say about how I initially sourced content and how the workers archive it. In the next part I'll get more into the details regarding storage and serving the content.

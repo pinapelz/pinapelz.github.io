@@ -7,13 +7,13 @@ body {
 	font-family: Verdana, sans-serif;
 	margin: auto;
 	padding: 20px;
-	max-width: 65ch;
+	max-width: 90ch;
 	text-align: left;
-	background-color: #fff;
+	background-color: #1A1A1A;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	line-height: 1.5;
-	color: #444;
+	line-height: 1.65;
+	color: #f0f0f0;
 }
 h1,
 h2,
@@ -23,10 +23,10 @@ h5,
 h6,
 strong,
 b {
-	color: #222;
+	color: #ffffff;
 }
 a {
-	color: #3273dc;
+	color: #4ca6ff;
 }
 nav a {
 	margin-right: 10px;
@@ -50,8 +50,12 @@ img {
 }
 code {
 	padding: 2px 5px;
-	background-color: #f2f2f2;
+	background-color: #646464;
 }
+td,th {
+	border: 1px solid white;
+	padding: 8px;
+  }
 pre {
 	padding: 1rem;
 }
@@ -59,9 +63,9 @@ pre > code {
 	all: unset;
 }
 blockquote {
-	border: 1px solid #999;
-	color: #222;
-	padding: 2px 0px 2px 20px;
-	margin: 0px;
+	border: 1px solid #666; 
+	color: #ccc; 
+	padding: 10px 20px; 
+	margin: 0; 
 	font-style: italic;
-}
+  }

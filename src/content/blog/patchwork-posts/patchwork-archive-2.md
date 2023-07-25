@@ -322,8 +322,11 @@ Yep. 100% CPU usage. Turns out FFMPEG can be pretty CPU intensive, the process o
 
 I ended up just making do with the speed. Bilibili isn't exactly a priority for me either, so I'm fine with it taking a while to download and convert videos. (The entire worker flow is queue based too, I'll touch on this another time)
 
+### Speed
+I run 2 workers, both of which pull from the same queue of videos to download. With the current setup, I'm able to average around `3 videos per minute` (180 videos per hour) for YouTube videos. Obviously if Bilibili videos are in the queue, the speed will be much slower.
+
 ## That's all for now
-That's pretty much all I got to say about how I initially sourced content and how the workers archive it. In the next part I'll get more into the details regarding storage and serving the content.
+That's all I got to say about how I initially sourced content and how the workers archive it. In the next part I'll get more into the details regarding storage and serving the content.
 
 
 

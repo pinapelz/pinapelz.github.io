@@ -1,7 +1,7 @@
 ---
 title: 'Archiving 8000 VTuber Songs and Music Covers (and counting) - Part 4: Workflow and Web UI'
 description: "Finally let's put it all together and see how it works!"
-pubDate: 'Jul 27 2023'
+pubDate: 'Jul 25 2023'
 heroImage: 'https://files.pinapelz.com/pso2ngs-2232-collab.png'
 ---
 The content is stored and hosted, the workers are running. The last pieces of the puzzle involve setting up a workflow to make adding new content as easy as possible, and a web UI to make it easy to browse content.

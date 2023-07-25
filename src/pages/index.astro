@@ -38,7 +38,7 @@ const posts = (await getCollection('blog')).sort(
 			<section>
 				<ul>
 					{
-						posts.slice(0, 3).map((post) => (
+						posts.slice(-3).map((post) => (
 							<li>
 								<FormattedDate date={post.data.pubDate} />
 								<a href={`/blog/${post.slug}/`}>{post.data.title}</a>

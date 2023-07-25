@@ -291,6 +291,8 @@ Full script [here](https://gist.github.com/pinapelz/1b02334aa09267717877e0502b4c
 
 The web UI itself is super simple. Everything is good old HTML, CSS, and JS. I figured since there wasn't really any "responsive" design, it would be easier to just write it all in vanilla JS.
 
+I've opted to use Flask as the web server for this project since it's fairly lightweight and when combined with templates and Jinja2, it's fairly easy to serve up static pages.
+
 
 ## Landing Page
 The landing page features some basic information I pulled from the Cloudflare R2 API and shows 2 randomly selected featured videos at the top of the page. This is basically done by using a random number generator where today's date is the seed. A fairly simple way to ensure that the same videos are shown for the entire day.

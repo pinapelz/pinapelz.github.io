@@ -239,4 +239,5 @@ My API is deployed at `https://link.pinapelz.com`. So now if anyone navigates th
 ## Conclusion
 This was a fun little project to try out what D1 is like. I have to say that its quite easy to use and Cloudflare has done a good job of integrating D1 with Workers. There are reported issues with speed when using D1, but I haven't noticed any issues with my worker. They are also deploying a new version of D1 with an experimental backend too which will significantly improve performance.
 
+![Image of link shortener site](https://files.catbox.moe/5peq11.png)
 

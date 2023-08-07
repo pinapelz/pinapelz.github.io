@@ -1,6 +1,6 @@
 ---
 title: 'Testing out Cloudflare D1 and Making a Link Shortener'
-description: 'Making a simple link shortener to test out Cloudlflare Workers and their new Serverless SQL database (D1)'
+description: 'Making a simple link shortener to test out Cloudflare Workers and their new Serverless SQL database (D1)'
 pubDate: 'Jul 27 2023'
 heroImage: '/603banner.png'
 ---

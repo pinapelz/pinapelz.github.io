@@ -2,7 +2,7 @@
 title: 'Yunohost, a Docker for end users? A possible future for self-hosting'
 description: 'A short opinion piece on Yunohost, a self-hosting solution'
 pubDate: 'Aug 6 2023'
-heroImage: '/603banner.png'
+heroImage: 'https://files.catbox.moe/3w34mx.jpg'
 ---
 
 Recently, I was looking to begin my foray into the Fediverse. After having a look at all the social media services that implemented ActivityPub, I decided to go with deploying a [Misskey](https://misskey-hub.net) instance. I'm a fairly regular user of Twitter/X and obviously being a weeb and open-source enthusiast I was pretty much drawn to it immediately.

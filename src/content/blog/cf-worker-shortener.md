@@ -2,7 +2,7 @@
 title: 'Testing out Cloudflare D1 and Making a Link Shortener'
 description: 'Making a simple link shortener to test out Cloudflare Workers and their new Serverless SQL database (D1)'
 pubDate: 'Jul 27 2023'
-heroImage: '/603banner.png'
+heroImage: 'https://files.catbox.moe/to49fk.png'
 ---
 Cloudflare recently launched its new D1 Serverless SQL database service into Open Alpha. I decided to test it out by making a simple link shortener. This was already previously possible through KV (key-value) storage, but D1 provides a more structured way of storing data allowing you to potentially expand upon this base in the future (for example adding account system to track what links were shortened by who).
 

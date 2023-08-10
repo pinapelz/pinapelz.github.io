@@ -1,7 +1,7 @@
 ---
 title: 'Unleashing the Chat Wizardry: Auto-Replying to Discord Messages'
 description: 'Harnessing the power of LLMs to auto-reply to Discord messages'
-pubDate: 'Aug 9 2023'
+pubDate: 'Aug 10 2023'
 heroImage: '/603banner.png'
 ---
 With the recent advancements in LLM technology, its fairly easy to access AIs capable of producing fairly sophisticated texts. So then that got me thinking, why not use it to auto-reply to Discord DMs. Maybe you don't want to talk to someone, or you'd like to set up a system capable of answering some questions while you're unavailable. Whatever the case may be, replying with an LLM is easily doable with a few lines of code.

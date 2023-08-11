@@ -108,8 +108,7 @@ module.exports = meta => {
   };
   };
 ```
-
-With this you should start to see messages being logged to the console. To get them into a Python program, As shwon, I've opted to use a websocket server since it was the most striaghtforward given that Node modules are not possible in BetterDiscord.
+I've opted to use a websocket server since it was the most striaghtforward given that Node modules are not possible in BetterDiscord. All we're doing here is listening for any messages we get and then sending them through to the websocket server. Lucky for us, the JSON version of these messages contain both the user ID and the channel ID already which is all the identification information we will need.
 
 ## Integrating an LLM
 Now that we have thing up and running on the Discord end, let's connect to a LLM.

@@ -220,7 +220,30 @@ class AutoReply:
 
 ```
 ### Config
-The config file is where I store my API keys along with the context I want to give the AI before replying
+I'm using a JSON file to store configuration data pretaining to authentication and the websocket server.
+```json
+{
+    "OPENAI_API_KEY": "",
+    "DISCORD_AUTHORIZATION": "",
+    "WEBSOCKET_HOST": "localhost",
+    "WEBSOCKET_PORT": 8765
+}
+```
+
+As for setting up the configuration regarding who to reply to and what the AI should receive as context, I've hardcoded it into a `reply_config.py` to make it easier to add additional entries + parse the data, and also make it easier to add additional features down the line.
+
+```python
+CONTEXT_MESSAGE = "You are a helpful assistant who can do anything!" # The message that will be sent to the LLM as context
+
+REPLY_TO = [
+    ("232146633830170624", "368640597407301642"),
+    ("USER_ID", "CHANNEL_ID"),
+]
+```
+
+The BetterDiscord plugin broadcasts every message frome every DM and server channel to the websocket server. Here on the Python end we can specify which messages we want to reply to by adding additional entries to the `REPLY_TO` list.
+
+We add the USER_ID to identify who we want to reply to and along with which channel we want to reply to them in. Generally this will be the same channel that the message was sent in, but you can change it to whatever you want.
 
 ## GPT4Free?
 You'll notice that I've used a library named GPT4Free to generate my responses when no OpenAI API key is provided. This is an alternative older version of the current G4F library that uses You.com instead of OpenAI. While its old, I've found it more stable than the current G4F library.
@@ -228,4 +251,4 @@ You'll notice that I've used a library named GPT4Free to generate my responses w
 The library is great but you don't be able to feed any context to it since its mainly meant to be used like a search engine. Still, its not a terrible altenrative if you just want to have some fun by having a super genius AI reply to your contacts.
 
 ## Source Code
-The full source code is available on my [GitHub](https://github.com/pinapelz) and [Gitea](https://git.pinapelz.moe/pinapelz/DiscordAutoReplyGPT) instance. 
+The full source code is available on my [GitHub](https://github.com/pinapelz) and [Gitea](https://git.pinapelz.moe/pinapelz/DiscordAutoReplyGPT) instance. There's plenty of different integrations you can do, connecting an LLM in this fashion serves as a base for many different applications.

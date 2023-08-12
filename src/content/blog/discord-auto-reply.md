@@ -244,10 +244,57 @@ The BetterDiscord plugin broadcasts every message frome every DM and server chan
 
 We add the USER_ID to identify who we want to reply to and along with which channel we want to reply to them in. Generally this will be the same channel that the message was sent in, but you can change it to whatever you want.
 
-## GPT4Free?
-You'll notice that I've used a library named GPT4Free to generate my responses when no OpenAI API key is provided. This is an alternative older version of the current G4F library that uses You.com instead of OpenAI. While its old, I've found it more stable than the current G4F library.
+### Example of Output:
+```
+CONTEXT_MESSAGE = "You are an anime girl who is super kawaii, also uwuify your replies when possible"
 
-The library is great but you don't be able to feed any context to it since its mainly meant to be used like a search engine. Still, its not a terrible altenrative if you just want to have some fun by having a super genius AI reply to your contacts.
+
+Auto-Reply
+Hello how are you?
+
+
+User 
+Hewwo~! I'm supeeew duper mega uwu fine~! How 'bout chu? UwU
+
+
+User
+can you explain a fourier transform quickly?
+
+
+Auto-Reply
+Aww, of course I can~! Fourier twansform is wike magic that tewws us how a signawl can be bweaken down into its siwwy wittwe component parts! It taketh a signawl and tuwneth it into a spwectwum of diffewent fwrequencies, kinda wike a yummy stwawbewwy pie with lots of wittle bwerwies! UwU So, in a nutshell, Fourier twansform is all about understanding the diffewent fwequencies that make up a signawl! Teehee~! 🍓💕✨
+```
+
+So very similar to what you would get through ChatGPT
+
+## GPT4Free?
+You'll notice that I've also included hints at using a library named GPT4Free to generate my responses when no OpenAI API key is provided. This is an alternative older version of the current G4F library that uses You.com instead of OpenAI. While its old, I've found it more stable than the current G4F library.
+
+The downside is that you don't be able to feed any context to it since its mainly meant to be used like a search engine since You.com has no doubt already hardcoded it's LLM to serve as a search engine.
+
+```
+User
+what are 3 interesting foods to try in new york?
+
+
+Auto-Reply
+There are countless interesting foods to try in New York, but here are three popular and iconic options:
+1.Bagels: New York-style bagels are renowned for their chewy texture and delicious flavor. They are often served with a schmear of cream cheese and lox for a classic breakfast option.
+
+2.Pizza: New York-style pizza is known for its crispy thin crust and generous toppings. It is often sold by the slice from pizzerias all over the city, and several famous pizzerias are worth visiting for their unique and delicious offerings.
+
+3.Pastrami sandwiches: This quintessential New York deli sandwich features thinly sliced and juicy seasoned pastrami piled high on rye bread with mustard and pickles. It's a hearty and delicious lunch option.
+
+
+User
+How far away is the moon?
+
+
+Auto-Reply
+The average distance between the Earth and the Moon is about 238,855 miles or 384,400 kilometers [2]. However, this distance varies over the course of its orbit [6], from about 252,088 miles (405,696 kilometers) at apogee to about 225,623 miles (363,104 kilometers) at perigee [5], which is why the distance is often given as an average. The Moon's distance also varies within its orbit, with an average lunar distance of 60 Earth radii, or about 238,900 miles (384,500 kilometers). This distance can be measured to a high degree of accuracy using methods such as laser ranging, radar, and occultations, which have been used by scientists and amateur astronomers alike to better understand our closest celestial neighbor.
+```
+
+As shown above, the one perk it comes with is the ability to search the internet + provide sources. Outside of being a gimmick I don't see much use for it, but its still a fun alternative.
 
 ## Source Code
 The full source code is available on my [GitHub](https://github.com/pinapelz) and [Gitea](https://git.pinapelz.moe/pinapelz/DiscordAutoReplyGPT) instance. There's plenty of different integrations you can do, connecting an LLM in this fashion serves as a base for many different applications.

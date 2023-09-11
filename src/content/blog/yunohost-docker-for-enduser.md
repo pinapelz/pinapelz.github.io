@@ -1,6 +1,6 @@
 ---
 title: 'Yunohost, a Docker for end users? A possible future for self-hosting'
-description: 'A short opinion piece on Yunohost, a self-hosting solution'
+description: 'Is this what Web 3.0 is supposed to be like?'
 pubDate: 'Aug 6 2023'
 heroImage: 'https://files.catbox.moe/3w34mx.jpg'
 ---
@@ -61,7 +61,7 @@ When a package gets abandoned, then what do we do? Yunohost offers no way for th
 
 I've already actually had an issue with this. The Misskey package is still running version 12 while the latest verison is 13. This means that I'm missing out on some of the latest features. Fortunatly I don't think that the Misskey package is completely abandoned as it still ranked quite high on the integration scale Yunohost has for its packages, but regardless it's still a bit of a pain.
 
-(if you'd like to check it out its over at [https://mk.moekyun.me](https:/mk.moekyun.me)
+~~(if you'd like to check it out its over at [https://mk.moekyun.me](https:/mk.moekyun.me)~~
 
 ### An Example
 I don't want to make it seem like all packages have install scripts that are overly complicated, the Minecraft server package is actually a fairly good example of how simple it can be to "revive a package". While the [main repo](https://github.com/YunoHost-Apps/minecraft_ynh/tree/master) seems to be abandoned, I was able to fork the repo, change version numbers, re-hash the sha256sum, and then install my fork through the web interface. [You can find that here](https://github.com/pinapelz/minecraft_ynh/commit/826137a0b4d049009c0523679903d35dcc411aac)

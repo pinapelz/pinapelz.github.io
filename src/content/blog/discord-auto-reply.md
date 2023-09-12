@@ -169,8 +169,6 @@ class OpenAIAPI(LLM):
 
 Next we can listen for messages from Discord on our websocket server and use it as a trigger to generate a new response.
 ```python
-
-
 def load_config() -> dict:
     with open("config.json", "r") as f:
         return json.load(f)

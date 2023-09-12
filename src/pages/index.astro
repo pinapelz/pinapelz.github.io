@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
+import ProjectGrid from '../components/ProjectGrid.astro'
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
@@ -54,108 +55,8 @@ const posts = (await getCollection('blog')).sort(
 			</p>
 			<h3>I did a thing..</h3>
 			<p>Here are some of the things I've done/experimented with and found pretty cool! (you can also find more <a href="https://pinapelz.moe">here</a>
-			<style>
-			.project-grid {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-			gap: 20px;
-			}
-
-			.project {
-			background-color: #292828;
-			padding: 20px;
-			border-radius: 8px;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-			text-align: center;
-			}
-
-			.project img {
-			max-width: 100%;
-			height: auto;
-			border-radius: 4px;
-			margin-bottom: 10px;
-			}
-
-			/* Styling for project descriptions */
-			.project-grid .project p.project-text,
-			.project-grid a{
-			text-decoration: none;
-			font-size: 14px;
-			line-height: 1.4;
-			color: #FFFFFF;
-			}
-
-			.project-grid .project p.project-title{
-			font-size: 18px;
-			line-height: 1;
-			}
-
-			img {
-			max-height: 100px;
-			}
-
-			</style>
-			<div class="project-grid">
-				<div class="project">
-				<a href="https://nijitracker.com" >
-				  <img src="/projects/nijitrack.png" alt="Nijitrack Logo">
-				</a>
-				  <p class="project-title">NijiTrack</p>
-				  <p class="project-text">
-					Record and track historical subscriber data for a set of YouTube channels.
-					Currently mine is set up to record data for Nijisanji Virtual YouTubers (Nijitracker link on repo).
-				  </p>
-				</div>
-				<div class="project">
-					<a href="https://archive.pinapelz.moe">
-					  <img src="/projects/patchwork.png" alt="Patchwork Logo">
-					</a>
-					  <p class="project-title">Video Archive Web (Patchwork Archive)</p>
-					  <p class="project-text">
-						A Python Flask web app that can host archived YouTube videos, currently used as the
-						front end for Patchwork Archive (link on repo).
-					  </p>
-				</div>
-				<div class="project">
-					<a href="https://github.com/pinapelz/JHolodex">
-					  <img src="/projects/holodex.png" alt="JHolodex Wrapper">
-					</a>
-					  <p class="project-title">JHolodex</p>
-					  <p class="project-text">
-						A Java object oriented wrapper for the Holodex API
-					  </p>
-				</div>
-				<div class="project">
-					<a href="https://github.com/pinapelz/Sapphire">
-					  <img src="https://www.gitbook.com/cdn-cgi/image/width=40,dpr=2,height=40,fit=contain,format=auto/https%3A%2F%2F1852825540-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FoWEO5F5fxBARvfBEby5l%252Ficon%252F9jUvxgDCe6egTrCyJ8t5%252Fsapphire_logo.png%3Falt%3Dmedia%26token%3D4e1ce138-1a38-4e5c-a9f8-490b24189b57" alt="Sapphire">
-					</a>
-					  <p class="project-title">Project Sapphire</p>
-					  <p class="project-text">
-						My fork of Sapphire, a C++ Final Fantasy XIV Server Emulator. Most of the work I've done
-						is pretaining to scripting content
-					  </p>
-				</div>
-				<div class="project">
-					<a href="https://github.com/pinapelz/yet-another-lavaplayer-bot">
-					  <img src="https://www.svgrepo.com/show/353655/discord-icon.svg" alt="YALP Bot">
-					</a>
-					  <p class="project-title">Yet Another Lavaplayer Bot</p>
-					  <p class="project-text">
-						A Discord music bot written in Java using JDA and Lavaplayer
-					  </p>
-				</div>
-				<div class="project">
-					<a href="https://github.com/pinapelz/ytmp3AutoTag">
-					  <img src="projects/github-mark-white.svg" alt="ytmp3 Autotag">
-					</a>
-					  <p class="project-title">GitHub</p>
-					  <p class="project-text">
-						GitHub is where I store the majority of the code I write! There's a bunch of stuff over there if you're interested
-					  </p>
-				</div>
-			</div>
-
-		</main>
+			<ProjectGrid>
+			</main>
 		<Footer />
 	</body>
 </html>

@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://pinapelz.com',
+  site: 'https://blog.pinapelz.com',
   integrations: [mdx(), sitemap()],
   image:{
     service: squooshImageService(),

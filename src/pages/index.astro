@@ -5,7 +5,6 @@ import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
-import ProjectGrid from "../components/ProjectGrid.astro";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
@@ -40,7 +39,7 @@ const posts = (await getCollection("blog")).sort(
         <ul>
           {
             posts
-              .slice(-3)
+              .slice(-5)
               .map((post) => (
                 <li>
                   <FormattedDate date={post.data.pubDate} />
@@ -62,18 +61,9 @@ const posts = (await getCollection("blog")).sort(
         with or made. I guess its kind of like writing documentation for all the
         things I've found intriguing or interesting.
       </p>
-      <h3>I did a thing..</h3>
-      <p>
-        Here are some of the things I've done/experimented with and found pretty
-        cool!
-        <ProjectGrid>
-          <section>
-            <h2>Check below for some links to more stuff!</h2>
-            <iframe src="https://pinapelz.moe/" width="100%" height="500px"
-            ></iframe>
-          </section>
-        <Footer />
+      <p>Check out the main site as well: <a href="https://pinapelz.com">pinapelz.com</a></p>
       </p>
     </main>
   </body>
+  <Footer />
 </html>

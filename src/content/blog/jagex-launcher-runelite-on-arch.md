@@ -35,3 +35,5 @@ Also try: `ln -s Runelite RuneLite.exe` if that doesn't work.
 I should also note that I had some performance related issues when running this from Wayland, but it worked fine after switching back to X11. I can't exactly say why this is the case, I know that Wayland and Nvidia sometimes don't play nice with each other, but I'm not sure if that's the case here.
 
 Now, when you click on the "Play" button for Runelite in the Jagex Launcher, it should launch the Runelite client. Have fun!
+
+**EDIT: If you have issues with the audio, I was able to solve this by removing `pipewire-alsa` and changing to `pulseaudio-alsa`**

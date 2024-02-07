@@ -4,6 +4,8 @@ description: "Finally let's put it all together and see how it works!"
 pubDate: 'Jul 25 2023'
 heroImage: 'https://files.pinapelz.com/pso2ngs-2232-collab.png'
 ---
+*Updated Feb 6 2024 - Added URL to new Patchwork Archive url*
+
 The content is stored and hosted, the workers are running. The last pieces of the puzzle involve setting up a workflow to make adding new content as easy as possible, and a web UI to make it easy to browse content.
 
 ## Workflow
@@ -434,4 +436,4 @@ button:hover,
 }
 
 </style> 
-<a class="button button-patchwork" href="https://archive.pinapelz.moe"  rel="noopener" role="button"><img class="icon" src="/patchwork.png" alt="">Patchwork Archive</a><br>
+<a class="button button-patchwork" href="https://patchwork.moekyun.me"  rel="noopener" role="button"><img class="icon" src="/patchwork.png" alt="">Patchwork Archive</a><br>

@@ -39,7 +39,14 @@ sudo arch-chroot /mnt
 
 and now every command we run will be like as if we were actually on the broken system.
 
-3. Re-install all packages
+3. Remove pacman lock file
+
+We'll want to manually remove the lockfile to allow `pacman` to run. Normally this file is here to prevent multiple instances of pacman from running at once so there isn't any collision between work done (keeping actions atomic). This is removed once the transaction/operation is done, but we're very clearly well beyond that so let's just go ahead and get rid of it.
+```bash
+sudo rm -rf /var/lib/pacman/db.lck
+```
+
+4. Re-install all packages
 
 Pacman actually maintains a database of what packages it has installed. So we can pipe this information into another pacman command to ask it to re-install everything.
 

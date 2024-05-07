@@ -21,6 +21,7 @@ Lucky for us, since Linux distros can generally run off of a Live-USB environmen
 
 # Steps
 1. Boot into Live USB environment and mount drives
+
 Once you've booted into the Live-USB, I reccomend getting Ethernet hooked up. Sometimes there can be corrupted packages left in the `.cache`, so those need to be redownloaded. You can use WiFi, but sometimes there are issues with connecting via Live USB.
 
 Identify the drive/partition with your OS installed (where the root directory is) and mount it
@@ -39,6 +40,7 @@ sudo arch-chroot /mnt
 and now every command we run will be like as if we were actually on the broken system.
 
 3. Re-install all packages
+
 Pacman actually maintains a database of what packages it has installed. So we can pipe this information into another pacman command to ask it to re-install everything.
 
 You could also triage the broken packages by verifying the checksum of each one and then individually uninstalling or re-installing it, but I think for the most part its far easier to just ask it to re-install everything (also dependency issues really mess this up)

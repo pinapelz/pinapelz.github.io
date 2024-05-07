@@ -11,11 +11,11 @@ I'm not the most well-versed when it comes to the whole Windows IT stuff, in fac
 # Diagnosis
 Depending on the order in which you installed Windows and Linux, the location of where your EFI partition actually is may differ. On my setup, I have Windows on my first drive and Linux on my second. My EFI partition with my current bootloader lives on my second drive which persumably also included my Windows 11 bootloader.
 
-So when I went and wiped my disk, this removed all files associated on that drive about my previous install (since I basically reformatted everything), and among that of course was the Windows bootloader meaning I effectively had no way to boot back into Windows
+So when I went and installed a different distro, this removed all my files associated about my previous install (since I basically reformatted everything), and among that of course was the Windows bootloader meaning I effectively had no way to boot back into Windows
 
 Chances are that if you find that the Windows boot option is missing, you're in the same boat.
 
-# Rebuld the EFI Partition
+# Rebuild the EFI Partition
 1. Flash the Live Media ISO to a USB
 Use Balena Etcher or something similar to flash the Disk Image ISO to a USB drive.
 
@@ -35,7 +35,7 @@ select disk X
 ```
 
 It helps to list the disks and examine the partitions to differentiate between them.
-Usually if there's like a 20gb or so Recovery/Reserved partition on a drive that'll be the one where Windows is on.
+Usually if there's 20gb or so Recovery/Reserved partition that'll be a pretty good indicator of the drive Windows was installed on
 ```
 list disk
 select disk X
@@ -86,9 +86,9 @@ bcdboot c:\Windows /s Y: /f ALL
 Now reboot and see if you can get into Windows
 
 # Re-add Windows to systemd-boot
-Ok assuming you can get into Windows now, we want to re-add the option for Windows into systemd-boot.
+Ok assuming you can get into Windows, we want to re-add the option for Windows into systemd-boot.
 
-Go ahead and boot into Linux and find the new created EFI partition
+Go ahead and boot into Linux and locate the newly created EFI partition
 ```bash
 lsblk -f
 ```
@@ -108,7 +108,7 @@ First create the mount points for both partitions
 sudo mkdir /mnt/arch_efi
 sudo mkdir /mnt/efi
 ```
-You can name them whatever, but I'll use `arch_efi` to indicate the Linux EFI partition and `efi` for Windows
+You can name them whatever, but I'll use the name `arch_efi` for the Linux EFI partition and `efi` for the Windows partition
 
 Mount both partitions
 ```bash
@@ -125,7 +125,7 @@ ls
 ```
 There should be a folder named `EFI`, and inside it there should be a Microsoft folder
 
-Once you have confirmed this, go ahead and copy this folder over to the EFI folder on `/mnt/arch_efi`
+Once you have confirmed this, go ahead and copy this folder over to the EFI folder in `/mnt/arch_efi`
 
 ```bash
 sudo cp -r /mnt/efi/EFI/Microsoft /mnt/arch_efi/EFI/

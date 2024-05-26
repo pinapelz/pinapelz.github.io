@@ -1,6 +1,6 @@
 ---
 title: '2024, the year of the Linux Desktop'
-description: 'Maybe its time to consider'
+description: 'Maybe its time to consider the Linux Desktop'
 pubDate: 'Feb 6 2024'
 heroImage: 'https://files.catbox.moe/bn190a.png'
 ---

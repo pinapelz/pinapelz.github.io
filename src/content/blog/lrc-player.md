@@ -63,7 +63,7 @@ If you need a LRC file, a good way is to rip it from Spotify using [Syrics](http
 At this point, you should already be able to play back the main media and have the lyrics highlighted as the media progresses.  
 Depending on how well the LRC file syncs with the main media, you may need to adjust the main offset labeled as "Offset (±ms)".
 
-<video controls>
+<video controls width="100%">
     <source src="https://files.catbox.moe/mfaei6.mp4" type="video/mp4">
 </video>
 
@@ -88,6 +88,6 @@ If the YouTube video you downloaded has subtitles (sometimes they look really co
 
 Unfortunately, there is no way to adjust the offset for this; it'll play according to the main media.
 
-<video controls>
+<video controls  width="100%">
     <source src="https://files.catbox.moe/ir6bs3.mp4" type="video/mp4">
 </video>

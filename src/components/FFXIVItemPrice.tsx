@@ -50,12 +50,12 @@ const FFXIVItemPrice: React.FC<FFXIVItemPriceProps> = ({ itemId = 5530, itemName
       <table className="ffxiv-table">
         <tbody>
           <tr>
-            <td className="ffxiv-label">Daily Sale Velocity:</td>
-            <td className="ffxiv-value">{formatNumber(dailySaleVelocity)} items</td>
-          </tr>
-          <tr>
             <td className="ffxiv-label">Average Price/Item:</td>
             <td className="ffxiv-value">{formatNumber(averageSalePrice)} gil</td>
+          </tr>
+          <tr>
+            <td className="ffxiv-label">Daily Sale Velocity:</td>
+            <td className="ffxiv-value">{formatNumber(dailySaleVelocity)} items</td>
           </tr>
           <tr>
             <td className="ffxiv-label">Enter Quantity:</td>

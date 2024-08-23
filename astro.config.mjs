@@ -1,13 +1,14 @@
-import { defineConfig, squooshImageService } from 'astro/config';
+import { defineConfig, sharpImageService } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import react from '@astrojs/react';
 
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://blog.pinapelz.com',
-  integrations: [mdx(), sitemap()],
+  integrations: [mdx(), sitemap(), react()],
   image:{
-    service: squooshImageService(),
+    service: sharpImageService(),
   }
 });

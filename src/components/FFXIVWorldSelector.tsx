@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
-
+import '../styles/ffxiv-selector.css';
 interface World {
   id: number;
   name: string;
 }
 
-const FFXIVWorldSelector: React.FC = () => {
+interface FFXIVWorldSelectorProps {
+  message: string;
+}
+
+const FFXIVWorldSelector: React.FC<FFXIVWorldSelectorProps> = ({ message = "Select a World" }) => {
   const [worlds, setWorlds] = useState<World[]>([]);
   const [selectedWorld, setSelectedWorld] = useState<string | null>(null);
 
@@ -40,9 +44,9 @@ const FFXIVWorldSelector: React.FC = () => {
   };
 
   return (
-    <div>
-      <label htmlFor="world-select">Select a world: </label>
-      <select id="world-select" onChange={handleWorldChange} value={selectedWorld || ''}>
+    <div className="ffxiv-container">
+      <label htmlFor="world-select" className="ffxiv-label">{message}</label>
+      <select id="world-select" onChange={handleWorldChange} value={selectedWorld || ''} className="ffxiv-select">
         <option value="">--Please choose an option--</option>
         {worlds.map((world) => (
           <option key={world.id} value={world.name}>
@@ -50,8 +54,7 @@ const FFXIVWorldSelector: React.FC = () => {
           </option>
         ))}
       </select>
-      {selectedWorld && <p>Selected World: {selectedWorld}</p>}
-      <button onClick={handleApplyClick}>Apply</button>
+      <button onClick={handleApplyClick} className="ffxiv-button">Apply</button>
     </div>
   );
 };

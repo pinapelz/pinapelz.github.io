@@ -11,11 +11,11 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^0.19.7",
-    "@astrojs/rss": "^2.4.3",
-    "@astrojs/sitemap": "^2.0.1",
-    "astro": "^3.0.12"
+    "@astrojs/rss": "^2.4.4",
+    "@astrojs/sitemap": "^2.0.2",
+    "astro": "^3.6.5"
   },
   "devDependencies": {
-    "astro-themes": "^0.2.4"
+    "astro-themes": "^0.2.5"
   }
 }

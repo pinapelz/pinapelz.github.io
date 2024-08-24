@@ -12,14 +12,35 @@ const FFXIVItemPrice: React.FC<FFXIVItemPriceProps> = ({ itemId = 5530, itemName
   const [averageSalePrice, setAverageSalePrice] = useState<number | null>(null);
   const [inputQuantity, setInputQuantity] = useState<number>(0);
   const [potentialGil, setPotentialGil] = useState<number>(0);
+  const [dataSource, setDataSource] = useState<string>('world');
 
   const fetchData = (attempt: number = 1) => {
     fetch(`https://universalis.app/api/v2/aggregated/${selectedWorld}/${itemId}`)
       .then(response => response.json())
       .then(data => {
-        const result = data.results[0];
-        setDailySaleVelocity(Math.round(result.nq.dailySaleVelocity.world.quantity));
-        setAverageSalePrice(Math.round(result.nq.averageSalePrice.world.price));
+        let result = data.results[0];
+        try {
+          setDailySaleVelocity(Math.round(result.nq.dailySaleVelocity.world.quantity));
+          setAverageSalePrice(Math.round(result.nq.averageSalePrice.world.price));
+          setDataSource('world');
+        } catch (error) {
+          try {
+            setDailySaleVelocity(Math.round(result.nq.dailySaleVelocity.dc.quantity));
+            setAverageSalePrice(Math.round(result.nq.averageSalePrice.dc.price));
+            setDataSource('dc');
+          } catch (error) {
+            try {
+              setDailySaleVelocity(Math.round(result.nq.dailySaleVelocity.region.quantity));
+              setAverageSalePrice(Math.round(result.nq.averageSalePrice.region.price));
+              setDataSource('region');
+            } catch (error) {
+              console.error('Error fetching data:', error);
+              if (attempt < 3) {
+                setTimeout(() => fetchData(attempt + 1), 5000);
+              }
+            }
+          }
+        }
       })
       .catch(error => {
         console.error(`Error fetching data (attempt ${attempt}):`, error);
@@ -53,7 +74,9 @@ const FFXIVItemPrice: React.FC<FFXIVItemPriceProps> = ({ itemId = 5530, itemName
   return (
     <div className="ffxiv-container">
       <div className="ffxiv-header">
-        <h1 className="ffxiv-h1">{itemName}</h1>
+        <a href={"https://universalis.app/market/" + itemId} className="no-underline">
+          <h1 className="ffxiv-h1">{itemName}</h1>
+        </a>
         <img src={itemImageUrl} alt={itemName} className="ffxiv-item-icon" />
       </div>
       <table className="ffxiv-table">
@@ -85,7 +108,8 @@ const FFXIVItemPrice: React.FC<FFXIVItemPriceProps> = ({ itemId = 5530, itemName
         </tbody>
       </table>
       <footer>
-        {selectedWorld} Marketboard Data provided by Universalis API. <a className="eorzeadb_link" href="#" onClick={(e) => { e.preventDefault(); fetchData(); }}>Click here to reload data</a>
+      {dataSource === 'dc' ? 'Datacenter Fallback ' : dataSource === 'region' ? 'Regional Fallback ' : ''}
+      {selectedWorld} Marketboard Data provided by Universalis API. <a className="eorzeadb_link" href="#" onClick={(e) => { e.preventDefault(); fetchData(); }}>Click here to reload data</a>
         <br />
       </footer>
     </div>

@@ -8,3 +8,11 @@
     color: darkgoldenrod;
 }
 
+.no-underline {
+  color: inherit;
+  text-decoration: none;
+}
+
+.no-underline:hover {
+  text-decoration: underline;
+}

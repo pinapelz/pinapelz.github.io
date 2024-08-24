@@ -13,6 +13,22 @@ const FFXIVItemPrice: React.FC<FFXIVItemPriceProps> = ({ itemId = 5530, itemName
   const [inputQuantity, setInputQuantity] = useState<number>(0);
   const [potentialGil, setPotentialGil] = useState<number>(0);
 
+  const fetchData = (attempt: number = 1) => {
+    fetch(`https://universalis.app/api/v2/aggregated/${selectedWorld}/${itemId}`)
+      .then(response => response.json())
+      .then(data => {
+        const result = data.results[0];
+        setDailySaleVelocity(Math.round(result.nq.dailySaleVelocity.world.quantity));
+        setAverageSalePrice(Math.round(result.nq.averageSalePrice.world.price));
+      })
+      .catch(error => {
+        console.error(`Error fetching data (attempt ${attempt}):`, error);
+        if (attempt < 3) {
+          setTimeout(() => fetchData(attempt + 1), 5000);
+        }
+      });
+  };
+
   useEffect(() => {
     const savedWorld = localStorage.getItem('selectedWorld');
     if (savedWorld) {
@@ -21,14 +37,7 @@ const FFXIVItemPrice: React.FC<FFXIVItemPriceProps> = ({ itemId = 5530, itemName
       setSelectedWorld('Midgardsormr');
     }
 
-    fetch(`https://universalis.app/api/v2/aggregated/${selectedWorld}/${itemId}`)
-      .then(response => response.json())
-      .then(data => {
-        const result = data.results[0];
-        setDailySaleVelocity(Math.round(result.nq.dailySaleVelocity.world.quantity));
-        setAverageSalePrice(Math.round(result.nq.averageSalePrice.world.price));
-      })
-      .catch(error => console.error('Error fetching data:', error));
+    fetchData();
   }, [itemId, selectedWorld]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,7 +84,10 @@ const FFXIVItemPrice: React.FC<FFXIVItemPriceProps> = ({ itemId = 5530, itemName
           </tr>
         </tbody>
       </table>
-      <footer>{selectedWorld} Marketboard Data provided by Universalis API</footer>
+      <footer>
+        {selectedWorld} Marketboard Data provided by Universalis API. <a className="eorzeadb_link" href="#" onClick={(e) => { e.preventDefault(); fetchData(); }}>Click here to reload data</a>
+        <br />
+      </footer>
     </div>
   );
 };

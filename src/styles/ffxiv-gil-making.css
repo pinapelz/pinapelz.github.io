@@ -1,0 +1,10 @@
+.eorzeadb_link {
+    color: goldenrod;
+    text-decoration: none;
+    position: relative;
+}
+
+.eorzeadb_link:hover {
+    color: darkgoldenrod;
+}
+

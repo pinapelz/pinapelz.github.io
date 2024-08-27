@@ -1,0 +1,3 @@
+[submodule "src/components/FFXIV-MDX-React-Components"]
+	path = src/components/FFXIV-MDX-React-Components
+	url = https://github.com/pinapelz/FFXIV-MDX-React-Components

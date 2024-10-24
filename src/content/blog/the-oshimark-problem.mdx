@@ -1,0 +1,89 @@
+---
+title: 'The Year 11779 Oshi Mark Problem'
+description: 'When will we run out of 2-emoji oshi marks?'
+pubDate: 'Oct 24 2024'
+heroImage: 'https://files.catbox.moe/8gr7k2.jpg'
+---
+import Latex from '../../components/Latex.astro';
+
+(This is a problem that lives rent-free in my head)
+
+The oshi mark is are emoji(s) that VTuber fans will often put in their social media usernames to represent their support for a particular VTuber. These are typically chosen during or before a VTuber's debut stream, you'll often see many VTubers changing their usernames to include them too!
+
+Seems like a good idea, until you realize that there is a finite number of emojis...
+
+## Definition
+As of writing this there are 3790 emojis in the Unicode standard. I know that platforms like X have may have their own standards (Twemoji), but for the sake of this problem let's assume that we're using the Unicode standard.
+
+This also includes skin-tones, which may or may not be appropriate to use in this context as well. However, this is just all theory anyways so let's include them and take this as a best-case scenario.
+
+## Problem
+Ideally, VTubers all want a unique oshi mark to represent them. Of course,  in the early days of VTubing a single emoji would be enough to represent a VTuber. However, as the industry grows and more VTubers debut, the chances of a VTuber getting a unique oshi mark decreases...
+
+So the fix is intuitive, let's just use 2 emojis for each new VTuber. This is fine, in fact its the solution we're on right now, but how long until we run out of 2-emoji oshi marks?
+
+
+<Latex formula="\binom{3790}{2} = \frac{3790 \times 3789}{2} = 7,171,755" />
+We then assume that all 1-emoji oshi marks are taken, so add that to the total number of 2-emoji oshi marks and we end up with 7,175,545 VTubers.
+
+### Predicting Growth
+We can predict VTuber growth in a fairly crude manner using Holodex. I wrote a Java wrapper for the Holodex API a while back, so I was easily able to spin something up quick.
+```java
+import com.pinapelz.Holodex;
+import com.pinapelz.HolodexException;
+import com.pinapelz.datatypes.Video;
+import com.pinapelz.query.VideoQueryBuilder;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class App {
+    public static void main(String[] args) {
+        try {
+            Holodex holodex = new Holodex("API_KEY");
+            VideoQueryBuilder query = new VideoQueryBuilder().setTopic("Debut_Stream").setLimit(100);
+            List<Video> videos = holodex.getVideos(query);
+
+            Map<LocalDate, Integer> dateCountMap = new HashMap<>();
+            for (Video video : videos) {
+                System.out.println(video.title);
+                LocalDate date;
+                try {
+                    date = LocalDate.parse(video.published_at, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+                } catch (NullPointerException e) {
+                    continue;
+                }
+                dateCountMap.put(date, dateCountMap.getOrDefault(date, 0) + 1);
+            }
+
+            double average = dateCountMap.values().stream().mapToInt(Integer::intValue).average().orElse(0.0);
+            System.out.println("Average number of debut streams per day: " + average);
+
+        } catch (HolodexException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+}
+```
+
+The above code takes the first 100 streams that are tagged as a "Debut_Stream" and then finds the average number of debut streams per day.
+
+Running the code outputs:
+```
+Average number of debut streams per day: 1.9565217391304348
+```
+
+Let's just call it at 2 new debut streams per day roughly. This means that we can expect 730 new VTubers per year.
+
+There are some numbers online that suggest that there are around [https://blog.gamesight.io/vtuber/](49 500 VTubers as of June 2023), so let's
+estimate that there are probably around 52 000 VTubers by the end of 2024.
+
+So that means 7,125,545 unique 2-emoji oshi marks remain assuming all VTubers have an oshi mark:
+
+Using the growth rate previously calculated: This means that in 9754 years, 4 months, and 2 days we will run out of 2-emoji oshi marks... (oh no!)
+
+### Conclusion
+On February 26th, 11779 we will run out of 2-emoji oshi marks, and will need to start using 3-emojis instead. So sleep well at night knowing that we have a long time before we run out of 2-emoji oshi marks.

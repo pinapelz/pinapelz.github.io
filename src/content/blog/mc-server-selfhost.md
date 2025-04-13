@@ -198,7 +198,7 @@ To start, the server. Users can navigate to the website and trigger the flask ap
 ```bash
 # Example start.sh
 #!/bin/bash
-ssh -o StrictHostKeyChecking=no  yukais6@circinus-30.ics.uci.edu << 'EOF'
+ssh -o StrictHostKeyChecking=no  steve@chicken-jockey.com << 'EOF'
 cd /home/yukais6/java-neural-net
 tmux new-session -d -s server
 tmux send-keys -t server'./tunnel &' C-m
@@ -209,7 +209,7 @@ EOF
 
 ```bash
 # Example stop.sh
-ssh -o StrictHostKeyChecking=no yukais6@circinus-33.ics.uci.edu << 'EOF'
+ssh -o StrictHostKeyChecking=no steve@chicken-jockey.com << 'EOF'
 tmux kill-session -t supervised-cluster
 exit
 EOF

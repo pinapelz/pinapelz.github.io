@@ -4,9 +4,9 @@ description: 'How I got the Jagex Launcher and Runelite to work on Arch Linux'
 pubDate: 'Oct 22 2023'
 heroImage: 'https://files.catbox.moe/bpk2h8.png'
 ---
-# Update
-I highly reccomend you use Bolt, an unofficial launcher
-https://github.com/Adamcake/Bolt
+> # Update
+> I highly suggest you use Bolt, an unofficial launcher
+> https://github.com/Adamcake/Bolt
 
 Sometime this year Jagex started incentivizing players to migrate their Runescape accounts to Jagex accounts. This was done by offering 20 additional bank slots to players who migrated. Me, being the sucker for free stuff that I am, decided to migrate my account not knowing that [Jagex Launcher does not and has no plans to support Linux](https://help.jagex.com/hc/en-gb/articles/13413514881937-Downloading-the-Jagex-Launcher-on-Linux).
 

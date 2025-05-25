@@ -4,7 +4,7 @@ description: 'How I got the Jagex Launcher and Runelite to work on Arch Linux'
 pubDate: 'Oct 22 2023'
 heroImage: 'https://files.catbox.moe/bpk2h8.png'
 ---
-> # Update
+> **Update**
 > I highly suggest you use Bolt, an unofficial launcher
 > https://github.com/Adamcake/Bolt
 

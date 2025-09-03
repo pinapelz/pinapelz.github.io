@@ -7,7 +7,7 @@ heroImage: 'https://files.pinapelz.com/astralagos.png'
 
 Every once in a while I think back to Final Fantasy XIV's producer's [statement following the outrage regarding using 3rd party plugins](https://na.finalfantasyxiv.com/lodestone/topics/detail/36c4d699763603fadd2e61482b0c5d56cb2e4547) to clear Dragonsong's Repirse (Ultimate). Ultimates are designed to be the hardest difficulty of raid content in the game, and as such often times "Race to World First" events are held to see which group of players can clear the content first.
 
-While there's usually always some controversy surrounding players using damage meters and triggers, interestingly this post was the one time where Yoshi-P (the producer of FFXIV) addressed the use of server emulation. 
+While there's usually always some controversy surrounding players using damage meters and triggers, interestingly this post was the one time where Yoshi-P (the producer of FFXIV) addressed the use of server emulation.
 
 <p align="center">
 <img src="https://files.catbox.moe/406tgu.png" alt="Server Emulation statemnt from Yoshi-P"/>
@@ -34,12 +34,12 @@ One good example of this dynamic is questing, when you go to accept a quest from
 
 All the data pretaining to quest text, textures, and interactions are stored on the client side. The only thing the server needs to handle is recording the state of the quest (accepted, completed, what step you're on, etc) and telling the client what actions should occur based on that state.
 
-Let's tak a look at sidequest `SubSea007` (A Thousand Words) as an example. 
+Let's tak a look at sidequest `SubSea007` (A Thousand Words) as an example.
 
 First looking at the client side we have access to the EXH (Excel Header) files which contain all the dialogue and quest descriptions.
 <details>
     <summary><b>subsea007_00117.exh_en.csv</b></summary>
-    
+
 
     Index	0 [0x0][0x0]	1 [0x0][0x4]
     0	TEXT_SUBSEA007_00117_SEQ_00	Latisha needs someone to report a bilking patron.
@@ -120,7 +120,7 @@ We also have access to the Lua files which contain mostly information about what
         }
         body .gist .gist-meta {
         color: #ffffff;
-        background: #373737; 
+        background: #373737;
         }
         body .gist .gist-meta a {
         color: #ffffff
@@ -149,7 +149,7 @@ This would probably be where it ends if this were a single player game, but sinc
     }
     body .gist .gist-meta {
     color: #ffffff;
-    background: #373737; 
+    background: #373737;
     }
     body .gist .gist-meta a {
     color: #ffffff
@@ -208,7 +208,7 @@ Let's have a look at ```Scene00002``` as an example:
 
 After confirming that the player is on ```Seq1``` of the quest, we call the ```Scene00002``` function which will play the cutscene and then call ```Scene00002Return``` once the cutscene is finished.
 
-We then send a notice to the player (in this case showing that they've completed thsi step of the quest)
+We then send a notice to the player (in this case showing that they've completed this step of the quest)
 <p align="center">
     <img src="https://files.catbox.moe/ofkyx8.png" />
 </p>
@@ -218,13 +218,13 @@ To know what flags to set we can often go back to look at the Lua script and see
 
 In this case `UI8BH` is the flag that gives the player a key item. Turning this flag on makes it so that the necessary item is rendered within the player's Key Item inventory.
 
-This should give you an idea of how the client and server interact with each other. So while emulating the "independent programs operating on a multitude of specialized servers" isn't possible, we can still see that in terms of "casual content" such as questing or just walking around the world, the client is doing most of the heavy lifting. 
+This should give you an idea of how the client and server interact with each other. So while emulating the "independent programs operating on a multitude of specialized servers" isn't possible, we can still see that in terms of "casual content" such as questing or just walking around the world, the client is doing most of the heavy lifting.
 
 If all you wanted to do was walk around the world, interact with NPCs, /gpose, do basic story quests, then I'd say we're pretty much there already. *(I will get to instanced content later)*
 
 > it would cost tens of millions of yen just to obtain the necessary servers. Without these servers and their proprietary programming, while one could potentially pull the client software and display model data and the like, the game itself will not operate.
 
-Ok, I'm pretty sure my PC with a i7-9700K and 32GB of RAM does not cost tens of millions of yen. I think running Sapphire is doing a little more than just "pulling the client software and displaying model data". You're able to walk around the world and maps as if you were playing the game normally. You can interact with NPCs, dye your gear, etc. 
+Ok, I'm pretty sure my PC with a i7-9700K and 32GB of RAM does not cost tens of millions of yen. I think running Sapphire is doing a little more than just "pulling the client software and displaying model data". You're able to walk around the world and maps as if you were playing the game normally. You can interact with NPCs, dye your gear, etc.
 
 While I definetly don't think my PC can handle 10 000+ players on at the same time, I'm pretty sure it can handle the 8 players required for a raid. Its not that the hardware can't handle it, its rather that the software isn't there yet.
 
@@ -276,9 +276,9 @@ public:
 
   void onInit( InstanceContent& instance ) override
   {
-    instance.registerEObj( "Entrance", 2007457, 9795764, 5, { 100.000000f, 0.000000f, 115.000000f }, 1.000000f, 0.000000f); 
-    // States -> vf_lock_on (id: 11) vf_lock_of (id: 12) 
-    instance.registerEObj( "Exit", 2000139, 0, 4, { 100.000000f, 0.000000f, 85.000000f }, 1.000000f, 0.000000f); 
+    instance.registerEObj( "Entrance", 2007457, 9795764, 5, { 100.000000f, 0.000000f, 115.000000f }, 1.000000f, 0.000000f);
+    // States -> vf_lock_on (id: 11) vf_lock_of (id: 12)
+    instance.registerEObj( "Exit", 2000139, 0, 4, { 100.000000f, 0.000000f, 85.000000f }, 1.000000f, 0.000000f);
 
   }
 

@@ -22,7 +22,7 @@ const { showTitle = true } = Astro.props;
   </div>
 
   <div class="results-info">
-    <span id="results-count">Loading posts...</span>
+    <span id="results-count">Start typing to search posts...</span>
   </div>
 
   <div id="search-results" class="search-results">
@@ -215,19 +215,25 @@ const { showTitle = true } = Astro.props;
       try {
         this.showLoading(true);
         const response = await fetch('/search.json');
-        if (!response.ok) throw new Error('Failed to load search index');
+        if (!response.ok) throw new Error(`Failed to load search index: ${response.status} ${response.statusText}`);
 
         const searchData = await response.json();
+
+        // Check if we have the expected structure
+        if (!searchData.documents || !Array.isArray(searchData.documents)) {
+          throw new Error('Invalid search index format: missing documents array');
+        }
+
         this.miniSearch = MiniSearch.loadJSON(JSON.stringify(searchData), {
           fields: ['title', 'content', 'tags'],
           storeFields: ['title', 'excerpt', 'date', 'tags', 'id']
         });
 
-        this.allPosts = searchData.documents || [];
-        this.displayAllPosts();
+        this.allPosts = searchData.documents;
+        this.displayEmptyState();
       } catch (error) {
         console.error('Error loading search index:', error);
-        this.showError('Failed to load search index. Please try again later.');
+        this.showError(`Failed to load search index: ${error.message}`);
       } finally {
         this.showLoading(false);
       }
@@ -247,11 +253,11 @@ const { showTitle = true } = Astro.props;
       });
 
       this.clearBtn.addEventListener('click', () => {
-        this.searchInput.value = '';
-        this.searchTerm = '';
-        this.updateClearButton();
-        this.displayAllPosts();
-      });
+      this.searchInput.value = '';
+      this.searchTerm = '';
+      this.updateClearButton();
+      this.displayEmptyState();
+    });
 
 
     }
@@ -265,6 +271,11 @@ const { showTitle = true } = Astro.props;
     }
 
     performSearch() {
+      if (!this.miniSearch) {
+        console.warn('Search index not loaded yet');
+        return;
+      }
+
       let results = [];
 
       if (this.searchTerm) {
@@ -275,7 +286,9 @@ const { showTitle = true } = Astro.props;
           combineWith: 'AND'
         });
       } else {
-        results = this.allPosts.map(post => ({ ...post, score: 1 }));
+        // Don't show all posts when search is empty
+        this.displayEmptyState();
+        return;
       }
 
       this.filteredPosts = results;
@@ -287,6 +300,15 @@ const { showTitle = true } = Astro.props;
       // Sort by newest by default
       this.filteredPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
       this.renderResults();
+    }
+
+    displayEmptyState() {
+      this.resultsCount.textContent = 'Start typing to search posts...';
+      this.resultsContainer.innerHTML = `
+        <div class="no-results">
+          <p>Enter a search term to find microblog posts.</p>
+        </div>
+      `;
     }
 
     renderResults() {

@@ -1,0 +1,577 @@
+{
+  "documentCount": 2,
+  "nextId": 2,
+  "documentIds": {
+    "0": "001-first-micro",
+    "1": "002-i-love-tailwind"
+  },
+  "fieldIds": {
+    "title": 0,
+    "content": 1,
+    "tags": 2
+  },
+  "fieldLength": {
+    "0": [
+      3,
+      34,
+      2
+    ],
+    "1": [
+      4,
+      26,
+      2
+    ]
+  },
+  "averageFieldLength": [
+    3.5,
+    30,
+    2
+  ],
+  "storedFields": {
+    "0": {
+      "title": "First Micro Post",
+      "excerpt": "This is a new thing I want for writing some random notes/musings! Everything gets indexed via MiniSearch which \"should\" in theory make it easy to find stuff (from keywords and other tags)",
+      "date": "2025-09-03",
+      "tags": [
+        "meta",
+        "microblog"
+      ],
+      "id": "001-first-micro"
+    },
+    "1": {
+      "title": "I LOVE TAILWINDCSS V4",
+      "excerpt": "I LOVE MIGRATING FROM TAILWIND V3 to V4. Just enough breaks so that I have to meticulously go through and reacquaint myself with the spaghetti that is JSX.",
+      "date": "2025-09-03",
+      "tags": [
+        "imdeadinside",
+        "tailwindcss"
+      ],
+      "id": "002-i-love-tailwind"
+    }
+  },
+  "dirtCount": 0,
+  "index": [
+    [
+      "jsx",
+      {
+        "1": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "just",
+      {
+        "1": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "reacquaint",
+      {
+        "1": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "random",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "go",
+      {
+        "1": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "gets",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "have",
+      {
+        "1": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "breaks",
+      {
+        "1": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "v3",
+      {
+        "1": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "v4",
+      {
+        "0": {
+          "1": 1
+        },
+        "1": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "via",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "love",
+      {
+        "0": {
+          "1": 1
+        },
+        "1": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "other",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "keywords",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "tailwind",
+      {
+        "1": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "tailwindcss",
+      {
+        "0": {
+          "1": 1
+        },
+        "2": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "tags",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "to",
+      {
+        "1": {
+          "0": 1,
+          "1": 2
+        }
+      }
+    ],
+    [
+      "the",
+      {
+        "1": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "theory",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "through",
+      {
+        "1": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "that",
+      {
+        "1": {
+          "1": 2
+        }
+      }
+    ],
+    [
+      "thing",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "this",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "enough",
+      {
+        "1": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "easy",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "everything",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "spaghetti",
+      {
+        "1": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "so",
+      {
+        "1": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "some",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "stuff",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "should",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "myself",
+      {
+        "1": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "meticulously",
+      {
+        "1": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "meta",
+      {
+        "2": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "make",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "migrating",
+      {
+        "1": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "minisearch",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "microblog",
+      {
+        "2": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "micro",
+      {
+        "0": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "musings",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "notes",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "new",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "with",
+      {
+        "1": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "which",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "writing",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "want",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "from",
+      {
+        "1": {
+          "0": 1,
+          "1": 1
+        }
+      }
+    ],
+    [
+      "find",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "first",
+      {
+        "0": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "for",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "imdeadinside",
+      {
+        "2": {
+          "1": 1
+        }
+      }
+    ],
+    [
+      "it",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "in",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "indexed",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "i",
+      {
+        "0": {
+          "1": 1
+        },
+        "1": {
+          "0": 1,
+          "1": 2
+        }
+      }
+    ],
+    [
+      "is",
+      {
+        "1": {
+          "0": 1,
+          "1": 1
+        }
+      }
+    ],
+    [
+      "and",
+      {
+        "1": {
+          "0": 1,
+          "1": 1
+        }
+      }
+    ],
+    [
+      "a",
+      {
+        "1": {
+          "0": 1
+        }
+      }
+    ],
+    [
+      "post",
+      {
+        "0": {
+          "0": 1
+        }
+      }
+    ]
+  ],
+  "serializationVersion": 2,
+  "documents": [
+    {
+      "id": "001-first-micro",
+      "title": "First Micro Post",
+      "excerpt": "This is a new thing I want for writing some random notes/musings! Everything gets indexed via MiniSearch which \"should\" in theory make it easy to find stuff (from keywords and other tags)",
+      "date": "2025-09-03",
+      "tags": [
+        "meta",
+        "microblog"
+      ],
+      "content": "This is a new thing I want for writing some random notes/musings! Everything gets indexed via MiniSearch which \"should\" in theory make it easy to find stuff (from keywords and other tags)"
+    },
+    {
+      "id": "002-i-love-tailwind",
+      "title": "I LOVE TAILWINDCSS V4",
+      "excerpt": "I LOVE MIGRATING FROM TAILWIND V3 to V4. Just enough breaks so that I have to meticulously go through and reacquaint myself with the spaghetti that is JSX.",
+      "date": "2025-09-03",
+      "tags": [
+        "imdeadinside",
+        "tailwindcss"
+      ],
+      "content": "I LOVE MIGRATING FROM TAILWIND V3 to V4. Just enough breaks so that I have to meticulously go through and reacquaint myself with the spaghetti that is JSX."
+    }
+  ]
+}

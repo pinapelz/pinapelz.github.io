@@ -124,7 +124,7 @@ const microblogs = (await getCollection("microblog")).sort(
           <h1>Microblog Stream</h1>
           <p>Short thoughts, quick updates, and random musings. Use the search below to find specific posts or browse by tags.</p>
 
-          <section class="microblog-section" id="microblog-posts">
+          <section class="microblog-section" id="microblog-posts" >
             {
               microblogs.map(async (post, index) => {
                 const { Content } = await post.render();
@@ -150,7 +150,7 @@ const microblogs = (await getCollection("microblog")).sort(
             }
           </section>
 
-          <div class="pagination-container">
+          <div class="pagination-container" >
             <button class="pagination-btn" id="prev-btn" disabled>← Previous</button>
             <div class="pagination-info" id="page-info">Page 1 of 1</div>
             <button class="pagination-btn" id="next-btn">Next →</button>

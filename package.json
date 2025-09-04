@@ -5,9 +5,11 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/buildSearchIndex.js && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "build:search": "node scripts/buildSearchIndex.js",
+    "verify:search": "node -e \"console.log('Search index:', JSON.parse(require('fs').readFileSync('public/search.json', 'utf8')).documentCount, 'documents')\""
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.4",

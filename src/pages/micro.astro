@@ -1,0 +1,244 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import MicroblogSearch from "../components/MicroblogSearch.astro";
+import { SITE_TITLE } from "../consts";
+import { getCollection } from "astro:content";
+import FormattedDate from "../components/FormattedDate.astro";
+
+const microblogs = (await getCollection("microblog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <BaseHead title={`Microblog - ${SITE_TITLE}`} description="Short thoughts and quick updates" />
+  </head>
+  <body>
+    <Header title={SITE_TITLE} />
+
+    <main>
+      <style>
+        .microblog-container {
+          max-width: 800px;
+          margin: 0 auto;
+        }
+        .back-link {
+          display: inline-block;
+          margin-bottom: 2rem;
+          color: #ccc;
+          text-decoration: none;
+        }
+        .back-link:hover {
+          color: #4ca6ff;
+        }
+        .intro-section {
+          margin-bottom: 3rem;
+        }
+        .intro-section h1 {
+          margin-bottom: 1rem;
+        }
+        .intro-section p {
+          color: #ccc;
+          line-height: 1.6;
+        }
+        .microblog-section {
+          margin: 3rem 0;
+        }
+        .microblog-post {
+          background: #2a2a2a;
+          border-left: 4px solid #4ca6ff;
+          padding: 1.5rem;
+          margin-bottom: 1.5rem;
+          border-radius: 0 8px 8px 0;
+        }
+        .microblog-content {
+          margin-bottom: 1rem;
+          line-height: 1.6;
+        }
+        .microblog-meta {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          font-size: 0.9rem;
+          color: #ccc;
+        }
+        .tags {
+          display: flex;
+          gap: 0.5rem;
+        }
+        .tag {
+          background: #404040;
+          padding: 0.2rem 0.5rem;
+          border-radius: 12px;
+          font-size: 0.8rem;
+          color: #f0f0f0;
+        }
+        .pagination-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
+          margin: 3rem 0;
+        }
+        .pagination-btn {
+          background: #4ca6ff;
+          color: white;
+          border: none;
+          padding: 0.75rem 1.5rem;
+          border-radius: 8px;
+          cursor: pointer;
+          font-size: 1rem;
+          text-decoration: none;
+          transition: background-color 0.3s ease;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        .pagination-btn:hover {
+          background: #3a95e8;
+        }
+        .pagination-btn:disabled {
+          background: #666;
+          cursor: not-allowed;
+          opacity: 0.5;
+        }
+        .pagination-info {
+          color: #ccc;
+          font-size: 0.9rem;
+          min-width: 120px;
+          text-align: center;
+        }
+        .microblog-post.hidden {
+          display: none;
+        }
+      </style>
+
+      <div class="microblog-container">
+        <a href="/" class="back-link">← Back to Home</a>
+
+        <div class="intro-section">
+          <h1>Microblog Stream</h1>
+          <p>Short thoughts, quick updates, and random musings. Use the search below to find specific posts or browse by tags.</p>
+
+          <section class="microblog-section" id="microblog-posts">
+            {
+              microblogs.map(async (post, index) => {
+                const { Content } = await post.render();
+                return (
+                  <article class={`microblog-post ${index >= 2 ? 'hidden' : ''}`} data-post-index={index}>
+                    <div class="microblog-content">
+                      {post.data.title && <h3 style="color: #ffffff; font-size: 1.1rem; margin: 0 0 0.75rem 0; line-height: 1.3;">{post.data.title}</h3>}
+                      <Content />
+                    </div>
+                    <div class="microblog-meta">
+                      <FormattedDate date={post.data.pubDate} />
+                      {post.data.tags && post.data.tags.length > 0 && (
+                        <div class="tags">
+                          {post.data.tags.map((tag) => (
+                            <span class="tag">#{tag}</span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </article>
+                );
+              })
+            }
+          </section>
+
+          <div class="pagination-container">
+            <button class="pagination-btn" id="prev-btn" disabled>← Previous</button>
+            <div class="pagination-info" id="page-info">Page 1 of 1</div>
+            <button class="pagination-btn" id="next-btn">Next →</button>
+          </div>
+        </div>
+
+        <MicroblogSearch />
+      </div>
+    </main>
+
+    <Footer />
+
+    <script>
+      const POSTS_PER_PAGE = 3;
+      let currentPage = 1;
+      let totalPosts = 0;
+      let totalPages = 1;
+
+      function initializePagination() {
+        const posts = document.querySelectorAll('.microblog-post');
+        totalPosts = posts.length;
+        totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
+
+        updatePaginationDisplay();
+        updateButtons();
+      }
+
+      function showPage(page) {
+        const posts = document.querySelectorAll('.microblog-post');
+        const startIndex = (page - 1) * POSTS_PER_PAGE;
+        const endIndex = startIndex + POSTS_PER_PAGE;
+
+        posts.forEach((post, index) => {
+          if (index >= startIndex && index < endIndex) {
+            post.classList.remove('hidden');
+          } else {
+            post.classList.add('hidden');
+          }
+        });
+      }
+
+      function updatePaginationDisplay() {
+        const pageInfo = document.getElementById('page-info');
+        pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+      }
+
+      function updateButtons() {
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages;
+
+        // Hide pagination if only one page
+        const paginationContainer = document.querySelector('.pagination-container');
+        if (totalPages <= 1) {
+          paginationContainer.style.display = 'none';
+        } else {
+          paginationContainer.style.display = 'flex';
+        }
+      }
+
+      function nextPage() {
+        if (currentPage < totalPages) {
+          currentPage++;
+          showPage(currentPage);
+          updatePaginationDisplay();
+          updateButtons();
+        }
+      }
+
+      function prevPage() {
+        if (currentPage > 1) {
+          currentPage--;
+          showPage(currentPage);
+          updatePaginationDisplay();
+          updateButtons();
+        }
+      }
+
+      // Initialize when DOM is loaded
+      document.addEventListener('DOMContentLoaded', () => {
+        initializePagination();
+
+        // Add event listeners
+        document.getElementById('prev-btn').addEventListener('click', prevPage);
+        document.getElementById('next-btn').addEventListener('click', nextPage);
+      });
+    </script>
+  </body>
+</html>

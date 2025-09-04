@@ -1,0 +1,376 @@
+---
+interface Props {
+  showTitle?: boolean;
+}
+
+const { showTitle = true } = Astro.props;
+---
+
+<div class="microblog-search">
+  {showTitle && <h2>Search Microblog Posts</h2>}
+
+  <div class="search-controls">
+    <div class="search-bar">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Search posts..."
+        class="search-input"
+      />
+      <button id="clear-search" class="clear-btn" style="display: none;">×</button>
+    </div>
+  </div>
+
+  <div class="results-info">
+    <span id="results-count">Loading posts...</span>
+  </div>
+
+  <div id="search-results" class="search-results">
+    <!-- Results will be populated by JavaScript -->
+  </div>
+
+  <div id="loading" class="loading" style="display: none;">
+    <p>Loading...</p>
+  </div>
+</div>
+
+<style>
+  .microblog-search {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .microblog-search h2 {
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+  }
+
+  .search-controls {
+    margin-bottom: 2rem;
+  }
+
+  .search-bar {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.75rem 3rem 0.75rem 1rem;
+    border: 2px solid #404040;
+    border-radius: 8px;
+    background: #2a2a2a;
+    color: #f0f0f0;
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: #4ca6ff;
+  }
+
+  .search-input::placeholder {
+    color: #888;
+  }
+
+  .clear-btn {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .clear-btn:hover {
+    background: #404040;
+    color: #f0f0f0;
+  }
+
+  .results-info {
+    margin-bottom: 1.5rem;
+    color: #ccc;
+    font-size: 0.9rem;
+  }
+
+  .search-results {
+    min-height: 200px;
+  }
+
+  .microblog-post {
+    background: #2a2a2a;
+    border-left: 4px solid #4ca6ff;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .microblog-content {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .microblog-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: #ccc;
+    flex-wrap: wrap;
+  }
+
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    background: #404040;
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: #f0f0f0;
+  }
+
+  .microblog-title {
+    color: #ffffff;
+    font-size: 1.1rem;
+    margin: 0 0 0.75rem 0;
+    line-height: 1.3;
+    font-weight: 600;
+  }
+
+  .microblog-excerpt {
+    margin: 0;
+    color: #e0e0e0;
+    line-height: 1.6;
+  }
+
+  .microblog-content-only {
+    margin: 0;
+    color: #f0f0f0;
+    line-height: 1.6;
+  }
+
+  .highlight {
+    background: #4ca6ff;
+    color: #1a1a1a;
+    padding: 0.1rem 0.2rem;
+    border-radius: 3px;
+  }
+
+  .loading, .no-results {
+    text-align: center;
+    padding: 3rem;
+    color: #ccc;
+  }
+
+  @media (max-width: 600px) {
+    .filter-controls {
+      flex-direction: column;
+    }
+
+    .tag-filter, .sort-select {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  import MiniSearch from 'minisearch';
+
+  class MicroblogSearch {
+    constructor() {
+      this.miniSearch = null;
+      this.allPosts = [];
+      this.filteredPosts = [];
+      this.searchTerm = '';
+
+      this.initializeElements();
+      this.loadSearchIndex();
+      this.bindEvents();
+    }
+
+    initializeElements() {
+      this.searchInput = document.getElementById('search-input');
+      this.clearBtn = document.getElementById('clear-search');
+      this.resultsContainer = document.getElementById('search-results');
+      this.resultsCount = document.getElementById('results-count');
+      this.loading = document.getElementById('loading');
+    }
+
+    async loadSearchIndex() {
+      try {
+        this.showLoading(true);
+        const response = await fetch('/search.json');
+        if (!response.ok) throw new Error('Failed to load search index');
+
+        const searchData = await response.json();
+        this.miniSearch = MiniSearch.loadJSON(JSON.stringify(searchData), {
+          fields: ['title', 'content', 'tags'],
+          storeFields: ['title', 'excerpt', 'date', 'tags', 'id']
+        });
+
+        this.allPosts = searchData.documents || [];
+        this.displayAllPosts();
+      } catch (error) {
+        console.error('Error loading search index:', error);
+        this.showError('Failed to load search index. Please try again later.');
+      } finally {
+        this.showLoading(false);
+      }
+    }
+
+
+
+    bindEvents() {
+      let searchTimeout;
+      this.searchInput.addEventListener('input', (e) => {
+        clearTimeout(searchTimeout);
+        this.updateClearButton();
+        searchTimeout = setTimeout(() => {
+          this.searchTerm = e.target.value.trim();
+          this.performSearch();
+        }, 300);
+      });
+
+      this.clearBtn.addEventListener('click', () => {
+        this.searchInput.value = '';
+        this.searchTerm = '';
+        this.updateClearButton();
+        this.displayAllPosts();
+      });
+
+
+    }
+
+    updateClearButton() {
+      if (this.searchInput.value.trim()) {
+        this.clearBtn.style.display = 'flex';
+      } else {
+        this.clearBtn.style.display = 'none';
+      }
+    }
+
+    performSearch() {
+      let results = [];
+
+      if (this.searchTerm) {
+        results = this.miniSearch.search(this.searchTerm, {
+          fuzzy: 0.2,
+          prefix: true,
+          boost: { title: 2 },
+          combineWith: 'AND'
+        });
+      } else {
+        results = this.allPosts.map(post => ({ ...post, score: 1 }));
+      }
+
+      this.filteredPosts = results;
+      this.renderResults();
+    }
+
+    displayAllPosts() {
+      this.filteredPosts = this.allPosts.map(post => ({ ...post, score: 1 }));
+      // Sort by newest by default
+      this.filteredPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+      this.renderResults();
+    }
+
+    renderResults() {
+      const totalResults = this.filteredPosts.length;
+      this.resultsCount.textContent = `${totalResults} result${totalResults !== 1 ? 's' : ''}`;
+
+      if (totalResults === 0) {
+        this.resultsContainer.innerHTML = `
+          <div class="no-results">
+            <p>No microblog posts found matching your search.</p>
+            ${this.searchTerm ? '<p>Try adjusting your search terms.</p>' : ''}
+          </div>
+        `;
+        return;
+      }
+
+      this.resultsContainer.innerHTML = this.filteredPosts.map(post => this.renderPost(post)).join('');
+    }
+
+    renderPost(post) {
+      const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+
+      let title = post.title || '';
+      let excerpt = post.excerpt || '';
+
+      if (this.searchTerm) {
+        const terms = this.searchTerm.toLowerCase().split(/\s+/);
+        terms.forEach(term => {
+          if (term.length > 2) {
+            const regex = new RegExp(`(${this.escapeRegex(term)})`, 'gi');
+            title = title.replace(regex, '<span class="highlight">$1</span>');
+            excerpt = excerpt.replace(regex, '<span class="highlight">$1</span>');
+          }
+        });
+      }
+
+      excerpt = excerpt.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      excerpt = excerpt.replace(/\*(.*?)\*/g, '<em>$1</em>');
+      excerpt = excerpt.replace(/`(.*?)`/g, '<code>$1</code>');
+
+      const tagsHtml = post.tags && post.tags.length > 0 ? `
+        <div class="tags">
+          ${post.tags.map(tag => `<span class="tag">#${tag}</span>`).join('')}
+        </div>
+      ` : '';
+
+      return `
+        <article class="microblog-post">
+          <div class="microblog-content">
+            ${post.title ? `<h3 class="microblog-title">${title}</h3>` : ''}
+            <div class="${post.title ? 'microblog-excerpt' : 'microblog-content-only'}">${excerpt}</div>
+          </div>
+          <div class="microblog-meta">
+            <time>${formattedDate}</time>
+            ${tagsHtml}
+          </div>
+        </article>
+      `;
+    }
+
+    escapeRegex(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    showLoading(show) {
+      this.loading.style.display = show ? 'block' : 'none';
+      this.resultsContainer.style.display = show ? 'none' : 'block';
+    }
+
+    showError(message) {
+      this.resultsContainer.innerHTML = `
+        <div class="no-results">
+          <p>Error: ${message}</p>
+        </div>
+      `;
+      this.resultsCount.textContent = 'Error loading results';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    new MicroblogSearch();
+  });
+</script>
